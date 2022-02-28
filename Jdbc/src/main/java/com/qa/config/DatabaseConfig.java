@@ -1,7 +1,8 @@
 package com.qa.config;
 
 public class DatabaseConfig {
-
+	
+//Setting up our connection to MYSQL
 	public static String username = "root";
 	
 	public static String password = "pass";
