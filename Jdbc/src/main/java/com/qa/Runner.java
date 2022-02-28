@@ -8,13 +8,12 @@ import com.qa.domain.Movie;
 public class Runner {
 
 	public static void main(String[] args) throws SQLException {
-		
+
 		Movie movieOne = new Movie("Shawshank redemption", "Thriller", 10);
 		Movie movieTwo = new Movie("Titanic", "Drama", 9);
 		MovieDAO dao = new MovieDAO();
 		
-		dao.create(movieTwo);
-
+		dao.create(movieOne);
 	}
 
 }

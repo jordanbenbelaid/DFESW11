@@ -3,6 +3,7 @@ package com.qa.domain;
 public class Movie {
 
 	//Attributes
+	private int id;
 	private String name;
 	private String genre;
 	private int rating;
@@ -11,6 +12,14 @@ public class Movie {
 	public Movie() {}
 	
 	//All arguments constructor
+	public Movie(int id, String name, String genre, int rating) {
+		this.id = id;
+		this.name = name;
+		this.genre = genre;
+		this.rating = rating;
+	}
+	
+	//Everything EXCEPT id
 	public Movie(String name, String genre, int rating) {
 		this.name = name;
 		this.genre = genre;
@@ -18,6 +27,14 @@ public class Movie {
 	}
 
 	//getters and setters
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}

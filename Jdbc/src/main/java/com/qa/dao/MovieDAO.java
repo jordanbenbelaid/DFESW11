@@ -31,6 +31,13 @@ public class MovieDAO {
 		}
 	}
 	
-	
+	//Delete statement 
+	public void delete(int id) {
+		try {
+			statement.executeUpdate("DELETE FROM movie WHERE id = " + id);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
