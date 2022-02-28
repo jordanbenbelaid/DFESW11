@@ -12,4 +12,6 @@ CREATE TABLE movie(
 );
 
 INSERT INTO movie(`name`, `genre`, `rating`) VALUES ('The Matrix', 'Thriller', 5);
+
+
 UPDATE movie SET name='hello', genre = 'good', rating=2;
