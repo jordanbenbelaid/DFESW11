@@ -11,9 +11,12 @@ public class Runner {
 
 		Movie movieOne = new Movie("Shawshank redemption", "Thriller", 10);
 		Movie movieTwo = new Movie("Titanic", "Drama", 9);
+		Movie changedMovie = new Movie("The Other Guys", "Comedy", 8);
 		MovieDAO dao = new MovieDAO();
 		
-		dao.create(movieOne);
+//		dao.create(movieOne);
+		//dao.delete(2);
+		dao.update(changedMovie, 1);
 	}
 
 }
