@@ -12,7 +12,7 @@ public class Runner {
 		Movie movieOne = new Movie("Shawshank redemption", "Thriller", 10);
 		Movie movieTwo = new Movie("Titanic", "Drama", 9);
 		Movie movieThree = new Movie("Harry Potter", "Sci-Fi", 10);
-		Movie changedMovie = new Movie("300", "Action", 8);
+		Movie changedMovie = new Movie("The Hobbit", "Sci-fi", 10);
 		MovieDAO dao = new MovieDAO();
 		
 //		dao.create(movieThree);
@@ -20,8 +20,9 @@ public class Runner {
 //		dao.delete(2);
 //		dao.update(changedMovie, 1);
 		
+//		dao.createPrepared(changedMovie);
 		
-//		System.out.println(dao.readAll());
+		System.out.println(dao.readAll());
 //		System.out.println(dao.readById(3));
 	}
 
