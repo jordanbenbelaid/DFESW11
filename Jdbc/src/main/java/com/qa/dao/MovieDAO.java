@@ -2,8 +2,11 @@ package com.qa.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.qa.config.DatabaseConfig;
 import com.qa.domain.Movie;
@@ -18,6 +21,31 @@ public class MovieDAO {
 		this.connection = DriverManager.getConnection(DatabaseConfig.url, DatabaseConfig.username, 
 				DatabaseConfig.password);
 		this.statement = connection.createStatement();
+	}
+	
+	//ResultSet    ----  Allows us to get back information that java can read from the MySql table
+	public Movie movieFromResultSet(ResultSet resultSet) throws SQLException {
+		int id = resultSet.getInt("id");
+		String name = resultSet.getString("name");
+		String genre = resultSet.getString("genre");
+		int rating = resultSet.getInt("rating");
+		
+		return new Movie(id, name, genre, rating);
+	}
+	
+	//ReadAll statement
+	public List<Movie> readAll(){
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM movie"); 
+			List<Movie> movies = new ArrayList<>();
+			while(resultSet.next()) {
+				movies.add(movieFromResultSet(resultSet));
+			}
+			return movies;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;	
 	}
 	
 	//Create statement

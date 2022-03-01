@@ -58,5 +58,12 @@ public class Movie {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+
+	@Override
+	public String toString() {
+		return "\nMovie: \nid: " + id + "\nname: " + name + "\ngenre: " + genre + "\nrating: " + rating + "\n";
+	}
+	
+	
 	
 }

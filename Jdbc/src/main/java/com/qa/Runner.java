@@ -15,8 +15,12 @@ public class Runner {
 		MovieDAO dao = new MovieDAO();
 		
 //		dao.create(movieOne);
-		//dao.delete(2);
-		dao.update(changedMovie, 1);
+//		dao.create(movieTwo);
+//		dao.delete(2);
+//		dao.update(changedMovie, 1);
+		
+		
+		System.out.println(dao.readAll());
 	}
 
 }
