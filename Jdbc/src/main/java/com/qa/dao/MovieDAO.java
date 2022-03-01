@@ -48,12 +48,36 @@ public class MovieDAO {
 		return null;	
 	}
 	
+	//ReadById statement
+	public Movie readById(int id) {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM movie WHERE id = " + id);
+					resultSet.next();
+					return movieFromResultSet(resultSet);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//ReadLatest statement
+	public Movie readLatest() {
+		try {
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM movie ORDER BY id DESC LIMIT 1");
+			resultSet.next();
+			return movieFromResultSet(resultSet);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	//Create statement
 	public void create(Movie movie) {
 		try {
 			statement.executeUpdate("INSERT INTO movie(`name`, `genre`, `rating`) "
 					+ "VALUES ('"+ movie.getName() +"', '"+ movie.getGenre() + "', "+ movie.getRating()+")");
-			
+			System.out.println(readLatest());
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -64,7 +88,7 @@ public class MovieDAO {
 		try {
 			statement.executeUpdate("UPDATE movie SET `name` = '" + movie.getName() + "', `genre` = '" + movie.getGenre() + 
 					"', `rating` = " + movie.getRating() + " WHERE id = " + id);
-			
+			System.out.println(readById(id));
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
