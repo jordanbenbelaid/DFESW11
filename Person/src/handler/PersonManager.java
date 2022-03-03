@@ -46,7 +46,7 @@ public class PersonManager {
 	//printing the list using an enhanced for loop
 	public void print() {
 		for(Person p : persons) {
-			System.out.println(p);;
+			System.out.println(p);
 		}
 	}
 }
