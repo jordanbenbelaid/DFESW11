@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS `duck` CASCADE;
+CREATE TABLE `duck` (
+	`id` BIGINT PRIMARY KEY AUTO_INCREMENT, 
+	`age` INTEGER CHECK (age<=20 AND age>=2), 
+	`gender` VARCHAR(255), 
+	`habitat` VARCHAR(255), 
+	`name` VARCHAR(255) NOT NULL UNIQUE
+);

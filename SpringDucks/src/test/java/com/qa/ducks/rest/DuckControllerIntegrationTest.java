@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -23,6 +25,8 @@ import com.qa.ducks.entity.Duck;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc // creates the MockMVC object
 @ActiveProfiles("test") // sets current profile to 'test'
+@Sql(executionPhase = ExecutionPhase.BEFORE_TEST_METHOD, scripts = { "classpath:duck-schema.sql",
+		"classpath:duck-data.sql" })
 public class DuckControllerIntegrationTest {
 
 	@Autowired // tells Spring to insert this object into the class
@@ -43,7 +47,7 @@ public class DuckControllerIntegrationTest {
 		String testDuckAsJSON = this.mapper.writeValueAsString(testDuck);
 		RequestBuilder req = post("/duck/create").content(testDuckAsJSON).contentType(MediaType.APPLICATION_JSON);
 
-		Duck testSavedDuck = new Duck(1, 12, "Donald", "Disneyworld", "Male");
+		Duck testSavedDuck = new Duck(2, 12, "Donald", "Disneyworld", "Male");
 		String testSavedDuckAsJSON = this.mapper.writeValueAsString(testSavedDuck);
 		// this will check the status code of my response
 		ResultMatcher checkStatus = status().isCreated();
@@ -54,4 +58,21 @@ public class DuckControllerIntegrationTest {
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
 
+	@Test
+	public void testCreate2() throws Exception {
+		// URL body method headers
+		Duck testDuck = new Duck(20, "Daffy", "Toon World", "Male");
+		String testDuckAsJSON = this.mapper.writeValueAsString(testDuck);
+		RequestBuilder req = post("/duck/create").content(testDuckAsJSON).contentType(MediaType.APPLICATION_JSON);
+
+		Duck testSavedDuck = new Duck(2, 20, "Daffy", "Toon World", "Male");
+		String testSavedDuckAsJSON = this.mapper.writeValueAsString(testSavedDuck);
+		// this will check the status code of my response
+		ResultMatcher checkStatus = status().isCreated();
+		// this will check the body of the response
+		ResultMatcher checkBody = content().json(testSavedDuckAsJSON);
+
+		// run the request and check both matchers
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+	}
 }
