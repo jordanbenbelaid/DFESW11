@@ -1,6 +1,7 @@
 package com.qa.ducks.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -73,6 +74,20 @@ public class DuckControllerIntegrationTest {
 		ResultMatcher checkBody = content().json(testSavedDuckAsJSON);
 
 		// run the request and check both matchers
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+	}
+
+	@Test
+	public void testReadById() throws Exception {
+		RequestBuilder req = get("/duck/readById/1");
+
+		ResultMatcher checkStatus = status().isOk();
+
+		Duck savedDuck = new Duck(1, 15, "Duck Dodgers", "space", "male");
+		String savedDuckAsJSON = this.mapper.writeValueAsString(savedDuck);
+
+		ResultMatcher checkBody = content().json(savedDuckAsJSON);
+
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
 }
