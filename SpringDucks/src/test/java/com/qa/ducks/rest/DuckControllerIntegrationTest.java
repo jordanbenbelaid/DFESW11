@@ -6,6 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -90,4 +93,22 @@ public class DuckControllerIntegrationTest {
 
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
+	
+	@Test
+	public void testReadAll() throws Exception {
+		Duck entry = new Duck(1L, 12, "Donald", "Disneyworld", "Male");
+		List<Duck> ducks = new ArrayList<>();
+		ducks.add(entry);
+		String ducksOutputAsJson = this.mapper.writeValueAsString(ducks);
+		
+		this.mvc.perform(get("/duck/readAll")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().json(ducksOutputAsJson));
+	}
+	
+	
+	
+	
+	
 }

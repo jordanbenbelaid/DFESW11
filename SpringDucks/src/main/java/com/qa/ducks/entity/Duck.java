@@ -104,22 +104,26 @@ public class Duck {
 				+ "]";
 	}
 	
+	
 	//More for testing when comparing objects match
 	@Override
 	public int hashCode() {
-		return Objects.hash(age, gender, habitat, id, name);
+		return Objects.hash(age, gender, habitat, name);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Duck other = (Duck) obj;
 		return age == other.age && Objects.equals(gender, other.gender) && Objects.equals(habitat, other.habitat)
-				&& id == other.id && Objects.equals(name, other.name);
+				&& Objects.equals(name, other.name);
 	}
 }
