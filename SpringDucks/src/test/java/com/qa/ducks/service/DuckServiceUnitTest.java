@@ -1,6 +1,7 @@
 package com.qa.ducks.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -56,7 +57,15 @@ public class DuckServiceUnitTest {
 	}
 	
 	
-	
+	@Test
+	public void deleteTrueTest() {
+		Mockito.when(this.repo.existsById(1L)).thenReturn(false);
+		
+		assertTrue(this.service.delete(1L));
+		
+		Mockito.verify(this.repo, Mockito.times(1)).deleteById(1L);
+		Mockito.verify(this.repo, Mockito.times(1)).existsById(1L);
+	}
 	
 	
 	
