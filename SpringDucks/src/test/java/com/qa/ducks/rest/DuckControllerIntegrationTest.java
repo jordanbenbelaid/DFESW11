@@ -96,7 +96,7 @@ public class DuckControllerIntegrationTest {
 	
 	@Test
 	public void testReadAll() throws Exception {
-		Duck entry = new Duck(1L, 12, "Donald", "Disneyworld", "Male");
+		Duck entry = new Duck(1L, 15, "Duck Dodgers", "space", "male");
 		List<Duck> ducks = new ArrayList<>();
 		ducks.add(entry);
 		String ducksOutputAsJson = this.mapper.writeValueAsString(ducks);
