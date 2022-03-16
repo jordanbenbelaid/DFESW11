@@ -3,6 +3,7 @@ package com.qa.ducks.rest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -107,7 +108,20 @@ public class DuckControllerIntegrationTest {
 				.andExpect(content().json(ducksOutputAsJson));
 	}
 	
-	
+	@Test
+	public void updateTest() throws Exception{
+		Duck entry = new Duck(1L, 15, "Duck Dodgers", "space", "male");
+		String entryDuckAsJson = this.mapper.writeValueAsString(entry);
+		
+		Duck result = new Duck(1L, 15, "Duck Dodgers", "space", "male");
+		String resultDuckAsJson = this.mapper.writeValueAsString(result);
+		
+		this.mvc.perform(put("/duck/update/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(entryDuckAsJson))
+		.andExpect(status().isAccepted())
+		.andExpect(content().json(resultDuckAsJson));
+	}
 	
 	
 	
